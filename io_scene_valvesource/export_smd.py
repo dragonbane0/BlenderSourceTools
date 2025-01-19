@@ -1054,7 +1054,7 @@ class SmdExporter(bpy.types.Operator, Logger):
 					self.smd_file.write("time {}\n".format(i))
 					
 					if self.armature.data.vs.implicit_zero_bone:
-						self.smd_file.write("0  0 0 0  0 0 0\n")
+						self.smd_file.write("0  0 0 0  0 0 0 0\n") #DB: Include w
 
 					if is_anim:
 						bpy.context.scene.frame_set(i)
@@ -1076,7 +1076,7 @@ class SmdExporter(bpy.types.Operator, Logger):
 						else:
 							PoseMatrix = self.armature.matrix_world @ PoseMatrix
 				
-						self.smd_file.write("{}  {}  {}\n".format(self.bone_ids[posebone.name], getSmdVec(PoseMatrix.to_translation()), getSmdVec(PoseMatrix.to_euler())))
+						self.smd_file.write("{}  {}  {}\n".format(self.bone_ids[posebone.name], getSmdVec(PoseMatrix.to_translation()), getSmdVec(PoseMatrix.to_quaternion()))) #DB: Change to quat export
 
 				self.smd_file.write("end\n")
 

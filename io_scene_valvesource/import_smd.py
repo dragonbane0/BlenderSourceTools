@@ -386,7 +386,10 @@ class SmdImporter(bpy.types.Operator, Logger):
 				
 			# Read SMD data
 			pos = Vector([float(values[1]), float(values[2]), float(values[3])])
-			rot = Euler([float(values[4]), float(values[5]), float(values[6])])
+			rot = Quaternion([float(values[4]), float(values[5]), float(values[6]), float(values[7])]) #DB: Use Quaternion instead
+
+			#DB: Force quat rotation mode
+			smd.rotMode = 'QUATERNION'
 			
 			keyframe = KeyFrame()
 			keyframe.frame = num_frames - 1
